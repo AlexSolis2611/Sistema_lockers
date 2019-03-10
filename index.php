@@ -29,6 +29,10 @@
 				if(mysqli_num_rows($query) == 0){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
 				}else{
+					$rowDat = mysqli_fetch_assoc($query);
+					$no_lock = $rowDat['no_locker'];
+					$upd = "UPDATE lockers SET estado_locker = 0 WHERE no_locker = '$no_lock'";
+					$resUpd = $conn->query($upd);
 					$delete = mysqli_query($conn, "DELETE FROM empleados WHERE id='$id_delete'");
 					if($delete){
 						echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
